@@ -22,8 +22,9 @@ namespace TeamApacheProjekatBackend.Services
             var  returnDTO = new CommentGetDetailsResponseDTO()
             {
                 Id = comment.Id,
-                PostId = comment.Post.Id,
-                UserId = comment.User.Id
+                PostId = comment.PostId,
+                UserId = comment.UserId,
+                Text = comment.Text
             };
             return returnDTO;
         }
@@ -37,7 +38,7 @@ namespace TeamApacheProjekatBackend.Services
             {
                 var dto = new CommentGetDetailsResponseDTO()
                 {
-                    Id = comment.Id, PostId = comment.Post.Id, Text = comment.Text, UserId = comment.User.Id
+                    Id = comment.Id, PostId = comment.PostId, Text = comment.Text, UserId = comment.UserId
                 };
                 commentsList.Add(dto);
             }
@@ -49,7 +50,7 @@ namespace TeamApacheProjekatBackend.Services
             //var commentEntity = _mapper.Map<Comment>(commentDTO);
             var commentEntity = new Comment { PostId = commentDTO.PostId, Text=commentDTO.Text, UserId = commentDTO.UserId };
             var result = await _commentRepository.InsertComment(commentEntity);
-            var returnDTO = new CommentGetDetailsResponseDTO { Id = result.Id, UserId = result.User.Id, PostId = result.Post.Id, Text = result.Text };
+            var returnDTO = new CommentGetDetailsResponseDTO { Id = result.Id, UserId = result.UserId, PostId = result.PostId, Text = result.Text };
             //return _mapper.Map<CommentGetDetailsResponseDTO>(result);
             return returnDTO;
         }
@@ -62,14 +63,14 @@ namespace TeamApacheProjekatBackend.Services
                 return false;
             }
 
-            _commentRepository.DeleteComment(exists.Id);
+            _commentRepository.DeleteComment(exists);
 
             return true;
         }
 
-        public void Update(CommentCreateRequestDTO commentDTO)
+        public void Update(int id, CommentCreateRequestDTO commentDTO)
         {
-            var commentEntity = new Comment { PostId = commentDTO.PostId, Text = commentDTO.Text, UserId = commentDTO.UserId };
+            var commentEntity = new Comment { Id = id,  PostId = commentDTO.PostId, Text = commentDTO.Text, UserId = commentDTO.UserId };
             _commentRepository.UpdateComment(commentEntity);
         }
     }

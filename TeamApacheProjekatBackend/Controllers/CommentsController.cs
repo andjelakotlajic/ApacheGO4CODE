@@ -62,7 +62,7 @@ namespace TeamApacheProjekatBackend.Controllers
             {
                 return BadRequest(ModelState);
             }
-            _service.Update(updateDTO);
+            _service.Update(id, updateDTO);
             return Ok(result);
         }
     }

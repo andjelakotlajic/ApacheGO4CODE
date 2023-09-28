@@ -14,9 +14,9 @@ namespace TeamApacheProjekatBackend.Repositories
             _context = context;
             _collection = _context.Comments;
         }
-        public void DeleteComment(int Id)
+        public void DeleteComment(Comment comment)
         {
-            _context.Remove(Id);
+            _collection.Remove(comment);
             _context.SaveChanges();
         }
 
@@ -33,14 +33,15 @@ namespace TeamApacheProjekatBackend.Repositories
         public async Task<Comment> InsertComment(Comment Comment)
         {
             //Comment.CommentDateTime = DateTime.Now;
-            _context.Add(Comment);
+            _collection.Add(Comment);
             _context.SaveChanges();
             return Comment;
         }
 
         public void UpdateComment(Comment Comment)
         {
-            _context.Entry(Comment).State = EntityState.Modified;
+            //_collection.Entry(Comment).State = EntityState.Modified;
+            _collection.Update(Comment);
             try
             {
                 _context.SaveChanges();

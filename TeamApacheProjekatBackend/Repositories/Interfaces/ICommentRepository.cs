@@ -8,6 +8,6 @@ namespace TeamApacheProjekatBackend.Repositories.Interfaces
         Task<IEnumerable<Comment>> FindAll(int postId);
         Task<Comment> FindById(int Id);
         void UpdateComment(Comment Comment);
-        void DeleteComment(int Id);
+        void DeleteComment(Comment comment);
     }
 }

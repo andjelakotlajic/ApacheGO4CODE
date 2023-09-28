@@ -1,4 +1,5 @@
 ﻿using TeamApacheProjekatBackend.Dto;
+using TeamApacheProjekatBackend.Models;
 
 namespace TeamApacheProjekatBackend.Services.Interfaces
 {
@@ -7,7 +8,7 @@ namespace TeamApacheProjekatBackend.Services.Interfaces
         Task<CommentGetDetailsResponseDTO> CreateAsync(CommentCreateRequestDTO comment);
         Task<IEnumerable<CommentGetDetailsResponseDTO>> GetAllAsync(int postId);
         Task<CommentGetDetailsResponseDTO> GetAsync(int id);
-        public Task<bool> DeleteAsync(int id);
-        void Update(CommentCreateRequestDTO commentDTO);
+        public Task<bool> DeleteAsync(int id );
+        void Update(int id, CommentCreateRequestDTO commentDTO);
     }
 }
