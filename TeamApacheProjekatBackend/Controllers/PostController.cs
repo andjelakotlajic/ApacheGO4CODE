@@ -54,5 +54,14 @@ namespace TeamApacheProjekatBackend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        [Authorize]
+
+        public async Task<ActionResult> UpdatePost([FromBody] PutPost post, int postId)
+        {
+            await _postService.UpdatePost(post, postId);
+            return Ok();
+        }
     }
 }
