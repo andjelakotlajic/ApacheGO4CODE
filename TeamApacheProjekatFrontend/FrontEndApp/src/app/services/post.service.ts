@@ -36,12 +36,23 @@ export class PostService {
       map(response => {
         response.forEach(element => {
             this.posts.push(new Post(element.id, element.text, element.createdTime, element.postLabels, element.user,element.views,element.comments))
-      
+          console.log(this.posts);
           });
        return this.posts
       }),
     );
   }
+
+  addComment(data: { postId: number, text: string }): Observable<any> {
+    const url = `http://localhost:5166/api/Comments`; // Primer URL-a za dodavanje komentara uz pretpostavku da postId određuje post
+    const token = localStorage.getItem('authToken')
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+  })
+    return this.http.post(url, data,{headers});
+  }
+
+
   getUserPosts() : Observable<Post[]> {
     this.posts = []
     var url = 'http://localhost:5166/api/Post/user posts';
@@ -71,4 +82,5 @@ export class PostService {
       }),
     );
   }
+
 }

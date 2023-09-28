@@ -1,16 +1,17 @@
-<div>
+<div class="container">
     <div *ngFor="let post of posts" class="post">
-        <p class="title">{{[post.user.userName]}}</p>
+        <p class="titleUserName">{{[post.user.userName]}}</p>
         <p class="title" style="margin-left: 50px;"> {{post.createdTime}}</p>
-        <p class="title" style="margin-left: 50px;">Location</p>
-        
-            <p>Labels area</p>
+
+        <p class="title" style="float: right;">Location</p>
+        <p style="font-style: italic;">Labels area</p>
+
         <ul>    
         <li *ngFor="let label of post.postLabels">
             {{label.content}}
         </li>
         </ul>
-        <textarea style="width: 100%;" readonly>
+        <textarea class="textPost" style="width: 100%;" readonly>
             {{post.text}}
         </textarea>   
         <br>
@@ -20,11 +21,25 @@
         <br>
         <p class="title">No. of views: {{post.views}}</p>
         <p class="title" style="float: right;">Rating</p>
-        <div class="comments"> 
-            <ul *ngIf="post.comments && post.comments.length > 0">
-                <li *ngFor="let comment of post.comments">
-                     {{ comment.text }} 
-                </li>
+      <div>
+            <ul >
+             <div class="add-comment"><p>Comments:</p> <button (click)="showCommentForm( post.id)">Add new comment</button></div>
+             <div *ngIf="showCommentFormForPost === post.id">
+                <form>
+          
+                  <label for="text">Comment:</label>
+                  <textarea id="text" name="text" [(ngModel)]="newComment"></textarea>
+          
+                  <button (click)="addComment(post.id)">Submit</button>
+                </form>
+            
+             </div>   
+             <li *ngFor="let comment of post.comments">
+                        
+                <div> <p>{{comment.username}} : {{comment.text}}</p> <div *ngIf()></div></div> 
+                  
+              
+              </li> 
             </ul>
         </div>
     </div>

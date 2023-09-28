@@ -1,6 +1,6 @@
 import { Label } from "./label.model"
 import { postUser } from "./postUser.model"
-import { Comment } from "@angular/compiler"
+import { Comment } from "./comment.model"
 
 export class Post {
     id: number
