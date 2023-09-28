@@ -21,6 +21,47 @@ namespace TeamApacheProjekatBackend.Services
             _labelRepository = labelRepository;
         }
 
+        public async Task AddRate(AddRatingDto dto, string username, int postId)
+        {
+            
+            var user = _userRepository.getUserByUsername(username);
+            try
+            {
+                var post = await _postRepository.GetPostById(postId);
+                var existingRates = await _postRepository.GetRatingsByUserId(postId, user.Id);
+                if (existingRates == null)
+                {
+                    var rate = new Rating
+                    {
+                        PostId = post.Id,
+                        UserId = user.Id,
+                        Rate = dto.Rate,
+
+                    };
+                    await _postRepository.AddRate(rate);
+                }
+
+                else
+                {
+                    var rate = new Rating
+                    {
+                        PostId = post.Id,
+                        UserId = user.Id,
+                        Rate = dto.Rate,
+
+                    };
+                    await _postRepository.RemoveUserRate(post.Id, user.Id);
+                    await _postRepository.AddRate(rate);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+            }
+           
+           
+        }
 
         public async Task CreatePost(PostCreateDto post, string username)
         {
@@ -69,6 +110,11 @@ namespace TeamApacheProjekatBackend.Services
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
             return await _postRepository.GetAllPosts();
+        }
+
+        public async Task<double?> GetRateAverage(int postId)
+        {
+           return  await _postRepository.GetRateAverage(postId);
         }
 
         public Task<IEnumerable<Post>> GetUsersPost(string username)
