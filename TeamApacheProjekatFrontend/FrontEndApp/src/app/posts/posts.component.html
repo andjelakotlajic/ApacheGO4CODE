@@ -2,8 +2,9 @@
     <div *ngFor="let post of posts" class="post">
         <p class="title">{{[post.user.userName]}}</p>
         <p class="title" style="margin-left: 50px;"> {{post.createdTime}}</p>
-        <p class="title" style="float: right;">Location</p>
-        <p>Labels area</p>
+        <p class="title" style="margin-left: 50px;">Location</p>
+        
+            <p>Labels area</p>
         <ul>    
         <li *ngFor="let label of post.postLabels">
             {{label.content}}
