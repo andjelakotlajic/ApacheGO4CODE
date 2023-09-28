@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterService } from '../services/register.service';
 import { Register } from '../model/register.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,16 +18,16 @@ export class RegisterComponent {
   password: string = "";
   confirmPassword: string = "";
   errorInfo: string = "";
-  constructor(private registerService: RegisterService){
+  constructor(private registerService: RegisterService, private router: Router){
 
   }
   ngOnInit(): void {
-
   }
   register() {
     this.registerService.register(new Register(this.username, this.firstName, this.lastName, this.mail, this.password)).subscribe({
       next: (data) => {
-        alert('registered') 
+        alert('registered')
+        this.router.navigate(['/login']) 
       } ,
       error: (data) => {
         alert('registration failed')

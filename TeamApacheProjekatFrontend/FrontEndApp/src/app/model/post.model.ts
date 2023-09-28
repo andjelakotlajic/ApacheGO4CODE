@@ -9,6 +9,7 @@ export class Post {
     views:number
     postLabels: Label[]
     user: postUser
+    rate: number
     comments:Comment[]
     constructor(id: number, text: string, createdTime: string, labels: Label[], User: postUser,views:number,comments:Comment[]) {
         this.text = text
@@ -16,6 +17,7 @@ export class Post {
         this.createdTime = createdTime
         this.postLabels = labels 
         this.user = User
+        this.rate = 0
         this.views=views
         this.comments=comments
     }
