@@ -9,11 +9,12 @@ namespace TeamApacheProjekatBackend.Services
     public class CommentService : ICommentService
     {
         public readonly ICommentRepository _commentRepository;
+        private readonly IUserRepository _userRepository;
         //public readonly IMapper _mapper;
-        public CommentService(ICommentRepository commentRepository/*, IMapper mapper*/)
+        public CommentService(ICommentRepository commentRepository,IUserRepository userRepository)
         {
             _commentRepository = commentRepository;
-            //_mapper = mapper;
+           _userRepository = userRepository;
         }
 
         public async Task<CommentGetDetailsResponseDTO> GetAsync(int id)
@@ -45,10 +46,10 @@ namespace TeamApacheProjekatBackend.Services
             return commentsList;
         }
 
-        public async Task<CommentGetDetailsResponseDTO> CreateAsync(CommentCreateRequestDTO commentDTO)
+        public async Task<CommentGetDetailsResponseDTO> CreateAsync(CommentCreateRequestDTO commentDTO,string username)
         {
-            //var commentEntity = _mapper.Map<Comment>(commentDTO);
-            var commentEntity = new Comment { PostId = commentDTO.PostId, Text=commentDTO.Text, UserId = commentDTO.UserId };
+            var user = _userRepository.getUserByUsername(username);
+            var commentEntity = new Comment { PostId = commentDTO.PostId, Text=commentDTO.Text, UserId = user.Id };
             var result = await _commentRepository.InsertComment(commentEntity);
             var returnDTO = new CommentGetDetailsResponseDTO { Id = result.Id, UserId = result.UserId, PostId = result.PostId, Text = result.Text };
             //return _mapper.Map<CommentGetDetailsResponseDTO>(result);
@@ -68,9 +69,10 @@ namespace TeamApacheProjekatBackend.Services
             return true;
         }
 
-        public void Update(int id, CommentCreateRequestDTO commentDTO)
+        public void Update(int id, CommentCreateRequestDTO commentDTO,string username)
         {
-            var commentEntity = new Comment { Id = id,  PostId = commentDTO.PostId, Text = commentDTO.Text, UserId = commentDTO.UserId };
+            var user = _userRepository.getUserByUsername(username);
+            var commentEntity = new Comment { Id = id,  PostId = commentDTO.PostId, Text = commentDTO.Text, UserId = user.Id};
             _commentRepository.UpdateComment(commentEntity);
         }
     }

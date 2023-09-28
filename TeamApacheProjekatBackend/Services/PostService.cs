@@ -12,13 +12,15 @@ namespace TeamApacheProjekatBackend.Services
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILabelRepository _labelRepository;
+        private readonly ICommentRepository _commentRepository;
       
 
-        public PostService(IPostRepository postRepository, IUserRepository userRepository, ILabelRepository labelRepository)
+        public PostService(IPostRepository postRepository, IUserRepository userRepository, ILabelRepository labelRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
             _labelRepository = labelRepository;
+            _commentRepository = commentRepository; 
         }
 
         public async Task AddRate(AddRatingDto dto, string username, int postId)
@@ -107,9 +109,58 @@ namespace TeamApacheProjekatBackend.Services
             }
         }
 
-        public async Task<IEnumerable<Post>> GetAllPosts()
+        public async Task<IEnumerable<Post_reviewsDto>> GetAllPosts()
         {
-            return await _postRepository.GetAllPosts();
+
+            var posts =  await _postRepository.GetAllPosts();
+            var postDtos = new List<Post_reviewsDto>();
+
+            foreach (var post in posts)
+            {
+                var postDto = new Post_reviewsDto
+                {
+                    Id = post.Id,
+                    UserId = post.UserId,
+                    Text = post.Text,
+                    CreatedTime = DateTime.Now,
+                    Views = post.Views,
+                    Rating = post.Rating,
+                    User = post.User
+                };
+                foreach(var label in post.PostLabels)
+                {
+                    postDto.PostLabels.Add(label);
+                }
+
+                var comments = await _commentRepository.FindAll(post.Id);
+
+                if (comments != null)
+                {
+                    var commDtos = new List<CommentGetDetailsResponseDTO>();
+                    var username = await _userRepository.GetUsernameById(post.User.Id);
+                    foreach (var comment in comments)
+                    {
+
+                        var dto = new CommentGetDetailsResponseDTO
+                        {
+                            Id = comment.Id,
+                            UserId = comment.UserId,
+                            Text = comment.Text,
+                            PostId = post.Id,
+                            username = username
+                        };
+                        commDtos.Add(dto);
+                    }
+
+                        postDto.Comments = commDtos;
+
+                    
+                }
+                
+                postDtos.Add(postDto);
+            }
+            return postDtos;
+            
         }
 
         public async Task<double?> GetRateAverage(int postId)

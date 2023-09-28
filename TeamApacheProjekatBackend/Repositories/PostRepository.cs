@@ -50,8 +50,10 @@ namespace TeamApacheProjekatBackend.Repositories
 
         public async Task<Post> GetPostById(int id)
         {
+
             var post = await _context.Posts.FirstOrDefaultAsync
                 (p => p.Id == id);
+
             if (post == null)
             {
                 return null;

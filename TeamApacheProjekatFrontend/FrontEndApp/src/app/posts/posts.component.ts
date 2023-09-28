@@ -12,12 +12,16 @@ export class PostsComponent {
   posts: Post[] = []
   isShowRate: boolean = false
   rating: string = '1'
+  showCommentFormForPost: number | null = null; 
+  newComment: string= ''; 
   constructor(private postService: PostService){}
+
   ngOnInit(){
     this.postService.getPosts().subscribe({
       next: (data) =>{
-        console.log(data)
-        this.posts = data
+        console.log(data);
+
+        this.posts = data;
       }
     })
     setTimeout(() => {
@@ -43,5 +47,31 @@ export class PostsComponent {
         this.ngOnInit()
       }
     })
+  }
+  showCommentForm(post_id: number) {
+    this.showCommentFormForPost = post_id;
+  }
+  addComment(postId:number){
+    const commentData = {
+      postId: postId,
+      text: this.newComment
+    };
+    this.postService.addComment(commentData).subscribe({
+      next: (response) => {
+        console.log('Komentar je uspešno dodat:', response);
+        // Osvježite listu postova nakon dodavanja komentara
+        this.postService.getPosts().subscribe({
+          next: (data) => {
+            this.posts = data;
+          }
+        });
+      },
+      error: (error: any) => {
+        console.error('Došlo je do greške prilikom dodavanja komentara:', error);
+      }
+    });
+        
+        this.newComment = "";
+        this.showCommentFormForPost = null;
   }
 }

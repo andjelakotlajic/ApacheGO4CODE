@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeamApacheProjekatBackend.Dto;
+using TeamApacheProjekatBackend.Models;
+using TeamApacheProjekatBackend.Services;
 using TeamApacheProjekatBackend.Services.Interfaces;
 
 namespace TeamApacheProjekatBackend.Controllers
@@ -36,9 +38,21 @@ namespace TeamApacheProjekatBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<CommentGetDetailsResponseDTO>> Post(CommentCreateRequestDTO comment)
         {
-            var result = await _service.CreateAsync(comment);
+            var username = User.Identity.Name;
+            var result = await _service.CreateAsync(comment,username);
 
             return CreatedAtAction(nameof(GetDetails), new { id = result.Id }, result);
+
+            //try
+            //{
+            //    var username = User.Identity.Name;
+            //    await _postService.CreatePost(post, username);
+            //    return Ok("Post added");
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
         }
 
         [HttpDelete]
@@ -57,12 +71,13 @@ namespace TeamApacheProjekatBackend.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var username = User.Identity.Name;
             var result = await _service.GetAsync(id);
             if (result == null)
             {
                 return BadRequest(ModelState);
             }
-            _service.Update(id, updateDTO);
+            _service.Update(id, updateDTO,username);
             return Ok(result);
         }
     }
