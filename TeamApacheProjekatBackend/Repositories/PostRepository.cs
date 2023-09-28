@@ -38,7 +38,7 @@ namespace TeamApacheProjekatBackend.Repositories
 
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
-            return await _context.Posts.ToArrayAsync();
+            return await _context.Posts.Include(p => p.User).Include(p => p.PostLabels).ToArrayAsync();
         }
 
         public async Task<Post> GetPostById(int id)
@@ -54,7 +54,7 @@ namespace TeamApacheProjekatBackend.Repositories
 
         public async Task<IEnumerable<Post>> GetUsersPost(int userId)
         {
-            var posts = await _collection.Where(p => p.UserId == userId).ToArrayAsync();
+            var posts = await _collection.Include(p => p.User).Include(p => p.PostLabels).Where(p => p.UserId == userId).ToArrayAsync();
             return posts;
         }
 

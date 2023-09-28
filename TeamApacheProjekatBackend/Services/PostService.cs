@@ -11,12 +11,14 @@ namespace TeamApacheProjekatBackend.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILabelRepository _labelRepository;
       
 
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        public PostService(IPostRepository postRepository, IUserRepository userRepository, ILabelRepository labelRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
+            _labelRepository = labelRepository;
         }
 
 
@@ -29,12 +31,8 @@ namespace TeamApacheProjekatBackend.Services
                 User = user,
                 Text = post.Text,
                 CreatedTime = DateTime.Now
-                //Labels = post.Labels.Select(PostLabelDto => new PostLabel { Content = PostLabelDto.Content}).ToList(),
                 //attachment 
             };
-
-
-
 
             foreach (var labelDto in post.Labels)
             {
@@ -42,14 +40,6 @@ namespace TeamApacheProjekatBackend.Services
                 {
                     Content = labelDto.Content
                 });
-
-                //    // Dodajte novi PostLabel objekat u listu Labels novog posta
-
-                //    if(await _labelRepository.CreateLabel(postLabel))
-                //    {
-                //          newPost.Labels.Add(postLabel);
-                //    };
-                //}
 
             }
             await _postRepository.CreatePost(newPost);
@@ -65,8 +55,14 @@ namespace TeamApacheProjekatBackend.Services
             }
             else
             {
-                _postRepository.DeletePost(post);
-                //treba da se doda brisanje komentara,labela,attachment
+                var labels = await _labelRepository.GetLabelsByPostId(post.Id);
+                foreach (var labelDto in labels)
+                {
+                    await _labelRepository.DeleteLabel(labelDto);
+                }
+
+               await _postRepository.DeletePost(post);
+                //treba da se doda brisanje komentara,attachment
             }
         }
 
@@ -85,9 +81,12 @@ namespace TeamApacheProjekatBackend.Services
             return null;
         }
 
-        public Task UpdatePost(PostCreateDto post)
+        public async Task UpdatePost(PutPost post,int postId)
         {
-            throw new NotImplementedException();
+            var postUpdate = await _postRepository.GetPostById(postId);
+            postUpdate.Text= post.Text;
+            await _postRepository.UpdatePost(postUpdate);
+           
         }
     }
 }
