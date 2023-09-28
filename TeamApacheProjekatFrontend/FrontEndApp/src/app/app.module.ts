@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import {MatInputModule} from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'posts', pathMatch: 'full'},
   { path: 'posts', component: PostsComponent, pathMatch: 'full'},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
-  { path: 'register', component: RegisterComponent, pathMatch: 'full'}
+  { path: 'register', component: RegisterComponent, pathMatch: 'full'},
+  { path: 'createpost', component: CreatePostComponent, pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     PostsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

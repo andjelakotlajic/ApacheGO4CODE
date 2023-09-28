@@ -1,11 +1,16 @@
 <div>
-    <div class="post">
-        <p class="title">User</p>
-        <p class="title" style="margin-left: 50px;"> Date time</p>
+    <div *ngFor="let post of posts" class="post">
+        <p class="title">{{[post.user.userName]}}</p>
+        <p class="title" style="margin-left: 50px;"> {{post.createdTime}}</p>
         <p class="title" style="float: right;">Location</p>
         <p>Labels area</p>
+        <ul>    
+        <li *ngFor="let label of post.postLabels">
+            {{label.content}}
+        </li>
+        </ul>
         <textarea style="width: 100%;" readonly>
-            Post text area
+            {{post.text}}
         </textarea>   
         <br>
         <textarea style="width: 100%;" readonly>
