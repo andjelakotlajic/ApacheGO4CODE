@@ -1,0 +1,18 @@
+<div style="margin: auto; width: 50%;">
+    <h1>Log in</h1>
+    <form>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Username*</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="loginDto.username" name="username"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Password*</mat-label>
+            <input type="password" matInput placeholder="Password" [(ngModel)]="loginDto.password" name="password" />
+        </mat-form-field>
+        </p>
+        <button mat-raised-button color="primary" (click)="LogIn()"> Log in </button>
+    </form>    
+</div>

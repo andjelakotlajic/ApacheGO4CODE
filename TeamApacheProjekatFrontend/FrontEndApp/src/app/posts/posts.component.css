@@ -1,0 +1,9 @@
+.post{
+    width: 400px;
+    border-style: solid;
+    padding: 10px;
+}
+.title{
+    display: inline-block;
+    vertical-align: top;
+}

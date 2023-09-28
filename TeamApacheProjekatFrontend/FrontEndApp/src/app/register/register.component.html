@@ -1,0 +1,43 @@
+<div style="margin: auto; width: 50%;">
+    <h1>Register</h1>
+    <form>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Username*</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>First name*</mat-label>
+            <input matInput placeholder="First name" [(ngModel)]="firstName" name="firstName"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Last name*</mat-label>
+            <input matInput placeholder="Last name" [(ngModel)]="lastName" name="lastName"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Register*</mat-label>
+            <input matInput placeholder="Mail" [(ngModel)]="mail" name="mail"/>
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Password*</mat-label>
+            <input type="password" matInput placeholder="Password" [(ngModel)]="password" name="password" />
+        </mat-form-field>
+        </p>
+        <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Repeat password*</mat-label>
+            <input type="password" matInput placeholder="Repeat password" [(ngModel)]="confirmPassword" name="confirmPassword" />
+        </mat-form-field>
+        </p>
+        <button mat-raised-button color="primary" (click)="register()"> Register </button>
+        <p style="color: red; margin-top: 15px; font-size: large;">{{errorInfo}}</p>
+    </form>    
+</div>
