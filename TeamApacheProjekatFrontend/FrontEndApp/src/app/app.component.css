@@ -1,0 +1,14 @@
+.nav{
+
+    background-color: #053B50;
+    height: 6%;
+}
+.nav button{
+    font-size: 32px;
+    color: #EEEEEE;
+    margin: 15px;
+    font-family: monospace;
+}
+.nav button:hover{
+    background-color: #176B87;
+}

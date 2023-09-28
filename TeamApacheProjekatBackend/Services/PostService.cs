@@ -92,9 +92,11 @@ namespace TeamApacheProjekatBackend.Services
                 }
 
                 var comments = await _commentRepository.FindAll(post.Id);
+
                 if (comments != null)
                 {
                     var commDtos = new List<CommentGetDetailsResponseDTO>();
+                    var username = await _userRepository.GetUsernameById(post.User.Id);
                     foreach (var comment in comments)
                     {
 
@@ -103,7 +105,8 @@ namespace TeamApacheProjekatBackend.Services
                             Id = comment.Id,
                             UserId = comment.UserId,
                             Text = comment.Text,
-                            PostId = post.Id
+                            PostId = post.Id,
+                            username = username
                         };
                         commDtos.Add(dto);
                     }

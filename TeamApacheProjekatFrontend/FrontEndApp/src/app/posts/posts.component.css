@@ -1,9 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 20px;
+    background-color: #EEEEEE;
+}
+.container{
+    background-color: #EEEEEE;
+    margin: 15px;
+    display: inline-block;
+
+}
+.titleUserName{
+    background-color: #64CCC5;
+}
+
+textarea{
+    border-color: #64CCC5;
+    box-shadow: 0 0 5px #64CCC5;
+    font-weight: bold;
+  }
+li,ul{
+    list-style-type: none !important;
+}
+li::marker{
+    text-decoration: none !important;
+}
 .post{
-    width: 400px;
-    border-style: solid;
-    padding: 10px;
+    width: 500px;
+    margin: 10px;
+    border: 2px solid #64CCC5;
 }
 .title{
     display: inline-block;
     vertical-align: top;
+}
+
+.add-comment{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-comment button {
+    background-color:#176B87 ;
+}
+.add-comment button:hover {
+    background-color: #64CCC5;
 }
