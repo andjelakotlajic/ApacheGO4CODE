@@ -1,0 +1,40 @@
+<div>
+    <div *ngFor="let post of posts" class="post">
+        <p class="title">{{[post.user.userName]}}</p>
+        <p class="title" style="margin-left: 50px;"> {{post.createdTime}}</p>
+        <p class="title" style="margin-left: 50px;">Location</p>
+        
+        <button style="float: right;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+         <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toggleEditPost(post.id, post.text)">
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item>
+              <span>Delete</span>
+            </button>
+            </mat-menu>
+            <p>Labels area</p>
+        <ul>    
+        <li *ngFor="let label of post.postLabels">
+            {{label.content}}
+        </li>
+        </ul>
+        <textarea style="width: 100%;" readonly>
+            {{post.text}}
+        </textarea>   
+        <br>
+        <textarea style="width: 100%;" readonly>
+            Post attachments 
+        </textarea>
+        <br>
+        <p class="title">No. of views</p>
+        <p class="title" style="float: right;">Rating</p>
+        <div *ngIf="editPost && idPostToEdit == post.id" class="editPost">
+            <h3>Edit post</h3>
+            <input type="text" [(ngModel)]="editText" name="editText" placeholder="Edit post text..."/>
+            <button mat-raised-button (click)="Edit(post.id)">Edit post</button>
+        </div>
+    </div>
+</div>

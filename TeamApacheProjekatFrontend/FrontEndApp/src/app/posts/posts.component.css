@@ -29,8 +29,12 @@ li::marker{
 }
 .post{
     width: 500px;
+
     margin: 10px;
     border: 2px solid #64CCC5;
+
+
+
 }
 .title{
     display: inline-block;
