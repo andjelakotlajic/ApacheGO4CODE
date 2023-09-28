@@ -19,6 +19,35 @@ namespace TeamApacheProjekatBackend.Controllers
             _postService = postService;
         }
 
+        [HttpPost("GetRateAverage")]
+        [Authorize]
+        public async Task<ActionResult> GetRateAverage(int postId)
+        {
+            try
+            {
+                return Ok(await _postService.GetRateAverage(postId));
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("AddRate")]
+        [Authorize]
+        public async Task<ActionResult> AddRate([FromBody] AddRatingDto dto, int postId)
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                await _postService.AddRate(dto, username, postId);
+                return Ok("Rate added.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("allPosts")]
 
         public async Task<ActionResult<IEnumerable<PostCreateDto>>> AllPost()

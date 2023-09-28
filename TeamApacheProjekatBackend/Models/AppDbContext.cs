@@ -13,6 +13,7 @@ namespace TeamApacheProjekatBackend.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<PostLabel> PostLabels { get; set; }
+        public DbSet<Rating> Rates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

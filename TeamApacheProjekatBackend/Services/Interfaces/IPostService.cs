@@ -10,5 +10,7 @@ namespace TeamApacheProjekatBackend.Services.Interfaces
         public Task DeletePost(int id);
         public Task<IEnumerable<Post>> GetAllPosts();
         public Task<IEnumerable<Post>> GetUsersPost(string username);
+        Task AddRate(AddRatingDto dto, string username, int postId);
+        Task<double?> GetRateAverage(int postId);
     }
 }
