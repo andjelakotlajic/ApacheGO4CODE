@@ -12,5 +12,6 @@ namespace TeamApacheProjekatBackend.Services.Interfaces
         public Task<IEnumerable<Post>> GetUsersPost(string username);
         Task AddRate(AddRatingDto dto, string username, int postId);
         Task<double?> GetRateAverage(int postId);
+        public Task IncreasePostViews();
     }
 }
