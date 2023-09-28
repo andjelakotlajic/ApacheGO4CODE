@@ -21,7 +21,7 @@ namespace TeamApacheProjekatBackend.Controllers
 
         [HttpPost("GetRateAverage")]
         [Authorize]
-        public async Task<ActionResult> GetRateAverage(int postId)
+        public async Task<ActionResult<double>> GetRateAverage(int postId)
         {
             try
             {

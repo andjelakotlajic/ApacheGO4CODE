@@ -3,6 +3,7 @@ import { AuthResponse, AuthService } from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   };
   errorMessage: string | null = null;
   private ngUnsubscribe = new Subject();
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient,private router: Router, private communicationService: CommunicationService) {}
 
 
   LogIn() {
@@ -29,8 +30,8 @@ export class LoginComponent {
       localStorage.setItem('authToken', data);
       console.log(localStorage);
       this.router.navigate(['/posts']);
+      this.communicationService.notifyParent()
     });
-    ;
     
   }
 }

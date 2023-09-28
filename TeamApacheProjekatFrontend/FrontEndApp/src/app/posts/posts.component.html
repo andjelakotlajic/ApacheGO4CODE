@@ -18,7 +18,22 @@
             Post attachments 
         </textarea>
         <br>
+        
         <p class="title">No. of views</p>
-        <p class="title" style="float: right;">Rating</p>
+        <p class="title" style="float: right;">Rating: {{post.rate}}</p>
+        <br>
+        
+        <div style="text-align: center;">
+            <label for="rate">Enter rating</label>
+            <select [(ngModel)]="rating" name="rating" name="rate">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <button mat-raised-button (click)="RatePost(post.id)">Rate</button>
+        </div>
+       
     </div>
 </div>

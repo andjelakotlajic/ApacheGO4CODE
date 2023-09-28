@@ -1,19 +1,22 @@
 
 <div>
-  <button mat-button routerLink="/posts">
+  <button mat-button *ngIf="logedIn" routerLink="/posts">
     Posts
   </button>
-  <button mat-button routerLink="/userposts">
+  <button mat-button *ngIf="logedIn" routerLink="/userposts">
     My posts
   </button>
-  <button mat-button routerLink="/createpost">
+  <button mat-button *ngIf="logedIn" routerLink="/createpost">
     Create post
   </button>
-  <button mat-button routerLink="/login">
+  <button mat-button *ngIf="!logedIn" routerLink="/login">
     Log in
   </button>
-  <button mat-button routerLink="/register">
+  <button mat-button *ngIf="!logedIn" routerLink="/register">
     Register
+  </button>
+  <button mat-button *ngIf="logedIn" (click)="LogOut()" routerLink="/login">
+    Log out
   </button>
   </div>
   <router-outlet></router-outlet>
