@@ -13,6 +13,6 @@ namespace TeamApacheProjekatBackend.Models
         public int? AttachmentId { get; set; }
         public int? Views {  get; set; }
         public int? Rating { get; set; }
-        public List<PostLabel>? Labels {  get; set; } 
+        public List<PostLabel>? PostLabels  {  get; set; }  = new List<PostLabel>();
     }
 }

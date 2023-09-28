@@ -12,37 +12,14 @@ namespace TeamApacheProjekatBackend.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
-
+        public DbSet<PostLabel> PostLabels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>()
-         .HasKey(p => p.Id);
-
-            modelBuilder.Entity<Post>()
-       .HasMany(p => p.Labels) 
-       .WithOne() 
-       .HasForeignKey(pl => pl.PostId);
-
-            modelBuilder.Entity<Post>()
-    .HasOne(p => p.User) 
-    .WithMany() 
-    .HasForeignKey(p => p.UserId);
-
-            modelBuilder.Entity<Comment>()
-.HasOne(p => p.User)
-.WithMany() 
-.HasForeignKey(p => p.UserId);
-
-            modelBuilder.Entity<Comment>()
-.HasOne(p => p.Post) 
-.WithMany() 
-.HasForeignKey(p => p.PostId);
-
-
-            modelBuilder.Entity<PostLabel>()
-        .HasKey(pl => pl.Id);
-
+        .HasMany(p => p.PostLabels)
+        .WithOne()
+        .HasForeignKey(pl => pl.PostId);
         }
     }
 }

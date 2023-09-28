@@ -118,7 +118,7 @@ namespace TeamApacheProjekatBackend.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostLabel");
+                    b.ToTable("PostLabels");
                 });
 
             modelBuilder.Entity("TeamApacheProjekatBackend.Models.User", b =>
@@ -176,13 +176,13 @@ namespace TeamApacheProjekatBackend.Migrations
             modelBuilder.Entity("TeamApacheProjekatBackend.Models.PostLabel", b =>
                 {
                     b.HasOne("TeamApacheProjekatBackend.Models.Post", null)
-                        .WithMany("Labels")
+                        .WithMany("PostLabels")
                         .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("TeamApacheProjekatBackend.Models.Post", b =>
                 {
-                    b.Navigation("Labels");
+                    b.Navigation("PostLabels");
                 });
 #pragma warning restore 612, 618
         }
