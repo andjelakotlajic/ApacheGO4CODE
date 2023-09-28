@@ -1,0 +1,26 @@
+<div style="margin: auto; width: 50%;">
+    <h1>Create post</h1>
+    <form>
+        <mat-form-field>
+            <mat-label>Post text</mat-label>
+            <textarea matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    style="width: 400px;" [(ngModel)]="postText" name="postText" ></textarea>
+        </mat-form-field>
+        <br>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Label</mat-label>
+                <input matInput [(ngModel)]="labelText" name="labelText"/>
+            </mat-form-field>
+        </p>
+        <button mat-raised-button (click)="AddLabel()">Add label</button>
+        <br><br>
+        <h3>Labels:</h3>
+        <ul>
+            <li *ngFor="let label of labels">{{label}}</li>
+        </ul>
+        <button mat-raised-button color="primary" (click)="SavePost()"> Submit </button>
+    </form>    
+</div>
