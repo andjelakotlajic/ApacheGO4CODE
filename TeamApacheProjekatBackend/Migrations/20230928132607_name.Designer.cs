@@ -12,8 +12,8 @@ using TeamApacheProjekatBackend.Models;
 namespace TeamApacheProjekatBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230928081423_init")]
-    partial class init
+    [Migration("20230928132607_name")]
+    partial class name
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,10 @@ namespace TeamApacheProjekatBackend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Comments");
                 });
 
@@ -93,6 +97,8 @@ namespace TeamApacheProjekatBackend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -146,16 +152,40 @@ namespace TeamApacheProjekatBackend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("TeamApacheProjekatBackend.Models.Comment", b =>
+                {
+                    b.HasOne("TeamApacheProjekatBackend.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("TeamApacheProjekatBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TeamApacheProjekatBackend.Models.Post", b =>
+                {
+                    b.HasOne("TeamApacheProjekatBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TeamApacheProjekatBackend.Models.PostLabel", b =>
                 {
                     b.HasOne("TeamApacheProjekatBackend.Models.Post", null)
-                        .WithMany("Labels")
+                        .WithMany("PostLabels")
                         .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("TeamApacheProjekatBackend.Models.Post", b =>
                 {
-                    b.Navigation("Labels");
+                    b.Navigation("PostLabels");
                 });
 #pragma warning restore 612, 618
         }
