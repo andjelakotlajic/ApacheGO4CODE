@@ -2,8 +2,8 @@
 
 namespace TeamApacheProjekatBackend.Repositories.Interfaces
 {
-    public interface ILoginRepository
+    public interface IUserRepository
     {
-        void Register(User user);
+        User getUserByUsername(string username);
     }
 }
