@@ -17,7 +17,14 @@
             Post attachments 
         </textarea>
         <br>
-        <p class="title">No. of views</p>
+        <p class="title">No. of views: {{post.views}}</p>
         <p class="title" style="float: right;">Rating</p>
+        <div class="comments"> 
+            <ul *ngIf="post.comments && post.comments.length > 0">
+                <li *ngFor="let comment of post.comments">
+                     {{ comment.text }} 
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

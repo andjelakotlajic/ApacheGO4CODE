@@ -13,8 +13,9 @@ export class PostsComponent {
   ngOnInit(){
     this.postService.getPosts().subscribe({
       next: (data) =>{
-        console.log(data)
-        this.posts = data
+        console.log(data);
+
+        this.posts = data;
       }
     })
   }

@@ -21,7 +21,7 @@ namespace TeamApacheProjekatBackend.Controllers
 
         [HttpGet("allPosts")]
 
-        public async Task<ActionResult<IEnumerable<PostCreateDto>>> AllPost()
+        public async Task<ActionResult<IEnumerable<Post_reviewsDto>>> AllPost()
         {
             var result = await _postService.GetAllPosts();
             return Ok(result);

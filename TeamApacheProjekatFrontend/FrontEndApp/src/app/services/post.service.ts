@@ -34,8 +34,9 @@ export class PostService {
     return this.http.get<Post[]>(url, {headers,responseType:'json'}).pipe(
       map(response => {
         response.forEach(element => {
-            this.posts.push(new Post(element.id, element.text, element.createdTime, element.postLabels, element.user))
-       });
+            this.posts.push(new Post(element.id, element.text, element.createdTime, element.postLabels, element.user,element.views,element.comments))
+      
+          });
        return this.posts
       }),
     );
