@@ -10,9 +10,11 @@ namespace TeamApacheProjekatBackend.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILoginService _loginService;
-        public LoginController(ILoginService loginService)
+        private readonly IPostService _postService;
+        public LoginController(ILoginService loginService, IPostService postService)
         {
             _loginService = loginService;
+            _postService = postService;
         }
 
         [HttpPost("Register")]
@@ -30,7 +32,7 @@ namespace TeamApacheProjekatBackend.Controllers
         }
 
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
             var token = _loginService.Login(loginDto);
             if (token != null)
@@ -40,6 +42,7 @@ namespace TeamApacheProjekatBackend.Controllers
                     return BadRequest("Wrong password!");
 
                 }
+                await _postService.IncreasePostViews();
                 return Ok(token);
             }
             else

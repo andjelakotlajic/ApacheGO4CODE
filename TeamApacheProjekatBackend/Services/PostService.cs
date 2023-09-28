@@ -88,5 +88,24 @@ namespace TeamApacheProjekatBackend.Services
             await _postRepository.UpdatePost(postUpdate);
            
         }
+        public async Task IncreasePostViews()
+        {
+            var posts = await _postRepository.GetAllPosts();
+
+            foreach(var post in posts)
+            {
+                if (post.Views == null)
+                {
+                    post.Views = 1;
+                }
+                else
+                {
+                    post.Views = post.Views + 1;
+                }
+                
+                await _postRepository.UpdatePost(post);
+
+            }
+        }
     }
 }
