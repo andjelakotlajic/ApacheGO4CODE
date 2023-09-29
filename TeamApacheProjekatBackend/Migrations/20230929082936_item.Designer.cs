@@ -12,8 +12,8 @@ using TeamApacheProjekatBackend.Models;
 namespace TeamApacheProjekatBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230928162009_rating")]
-    partial class rating
+    [Migration("20230929082936_item")]
+    partial class item
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,10 +33,8 @@ namespace TeamApacheProjekatBackend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
