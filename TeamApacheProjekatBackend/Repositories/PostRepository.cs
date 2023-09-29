@@ -45,7 +45,7 @@ namespace TeamApacheProjekatBackend.Repositories
 
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
-            return await _context.Posts.Include(p => p.User).Include(p => p.PostLabels).ToArrayAsync();
+            return await _context.Posts.Include(p => p.User).Include(p => p.PostLabels).OrderByDescending(p => p.CreatedTime).ToArrayAsync();
         }
 
         public async Task<Post> GetPostById(int id)

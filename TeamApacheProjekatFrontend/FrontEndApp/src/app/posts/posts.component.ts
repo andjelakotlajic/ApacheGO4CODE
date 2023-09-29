@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { Post } from '../model/post.model';
 import { Rate } from '../model/rate.model';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-posts',
@@ -14,9 +15,10 @@ export class PostsComponent {
   rating: string = '1'
   showCommentFormForPost: number | null = null; 
   newComment: string= ''; 
-  constructor(private postService: PostService){}
+  constructor(private postService: PostService, private communicationService: CommunicationService){}
 
   ngOnInit(){
+    this.communicationService.notifyParent()
     this.postService.getPosts().subscribe({
       next: (data) =>{
         console.log(data);
@@ -35,7 +37,7 @@ export class PostsComponent {
           }
         })
       })
-    }, 100);
+    }, 300);
   }
   RatePost(id: number){
     let rate: Rate = new Rate(Number(this.rating))

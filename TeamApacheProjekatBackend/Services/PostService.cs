@@ -98,6 +98,7 @@ namespace TeamApacheProjekatBackend.Services
             }
             else
             {
+                _commentRepository.DeleteCommentByPostId(id);
                 var labels = await _labelRepository.GetLabelsByPostId(post.Id);
                 foreach (var labelDto in labels)
                 {

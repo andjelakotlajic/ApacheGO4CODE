@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Post } from '../model/post.model';
 import { PostService } from '../services/post.service';
 import { EditPost } from '../model/editpost.model';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-my-posts',
@@ -13,7 +14,7 @@ export class MyPostsComponent {
   editPost: boolean = false
   idPostToEdit: number = 0
   editText: string = "" 
-  constructor(private postService: PostService){}
+  constructor(private postService: PostService, private communicationService: CommunicationService){}
   ngOnInit(){
     this.postService.getUserPosts().subscribe({
       next: (data) =>{
@@ -21,6 +22,19 @@ export class MyPostsComponent {
         this.posts = data
       }
     })
+    setTimeout(() => {
+      this.posts.forEach(element =>{
+        this.postService.getAverageRate(element.id).subscribe({
+          next: (data) =>{
+            element.rate = data
+          },
+          error: (data)=>{
+            console.log('greska')
+          }
+        })
+      })
+    }, 300);
+    this.communicationService.notifyParent()
   }
   toggleEditPost(id: number, text: string){
     this.idPostToEdit = id
@@ -36,5 +50,11 @@ export class MyPostsComponent {
     })
     this.editPost = !this.editPost
   }
-
+  Delete(id: number){
+    this.postService.deletePost(id).subscribe({
+      next: (data) =>{
+        this.ngOnInit()
+      }
+    })
+  }
 }

@@ -9,5 +9,6 @@ namespace TeamApacheProjekatBackend.Repositories.Interfaces
         Task<Comment> FindById(int Id);
         void UpdateComment(Comment Comment);
         void DeleteComment(Comment comment);
+        public void DeleteCommentByPostId(int postId);
     }
 }

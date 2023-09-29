@@ -19,6 +19,17 @@ namespace TeamApacheProjekatBackend.Repositories
             _collection.Remove(comment);
             _context.SaveChanges();
         }
+        public void DeleteCommentByPostId(int postId)
+        {
+            foreach(var comment in _collection)
+            {
+                if(comment.PostId == postId)
+                {
+                    _collection.Remove(comment);
+                }
+            }
+            _context.SaveChanges();
+        }
 
         public async Task<IEnumerable<Comment>> FindAll(int postId)
         {
