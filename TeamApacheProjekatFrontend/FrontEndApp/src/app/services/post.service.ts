@@ -83,6 +83,19 @@ export class PostService {
       }),
     );
   }
+  deletePost(postId: number) : Observable<boolean> {
+    this.posts = []
+    var url = 'http://localhost:5166/api/Post?postId='+postId;
+    const token = localStorage.getItem('authToken')
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+    })
+    return this.http.delete<boolean>(url, {headers,responseType:'json'}).pipe(
+      map(response => {
+        return true
+      }),
+    );
+  }
   getAverageRate(postId: number) : Observable<number> {
     var url = 'http://localhost:5166/api/Post/GetRateAverage?postId='+postId;
     const token = localStorage.getItem('authToken')

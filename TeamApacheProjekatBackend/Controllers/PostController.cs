@@ -92,5 +92,13 @@ namespace TeamApacheProjekatBackend.Controllers
             await _postService.UpdatePost(post, postId);
             return Ok();
         }
+        [HttpDelete]
+        [Authorize]
+
+        public async Task<ActionResult> DeletePost(int postId)
+        {
+            await _postService.DeletePost(postId);
+            return Ok();
+        }
     }
 }

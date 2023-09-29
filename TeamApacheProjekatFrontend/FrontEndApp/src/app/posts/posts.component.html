@@ -1,8 +1,8 @@
-<div class="container">
-    <div *ngFor="let post of posts" class="post">
+<div class="container" style="width: 100%;">
+    <h1 style="text-align: center;">Posts</h1>
+    <div *ngFor="let post of posts" class="post" style="width: 40%; margin: auto; margin-top: 25px;">
         <p class="titleUserName">{{[post.user.userName]}}</p>
-        <p class="title" style="margin-left: 50px;"> {{post.createdTime}}</p>
-
+        <p class="title" style="margin-left: 50px;"> {{post.date}}</p>
         <p class="title" style="float: right;">Location</p>
         <p style="font-style: italic;">Labels area</p>
 
@@ -50,10 +50,7 @@
             
              </div>   
              <li *ngFor="let comment of post.comments">
-                        
                 <div> <p>{{comment.username}} : {{comment.text}}</p> <div *ngIf()></div></div> 
-                  
-              
               </li> 
             </ul>
         </div>

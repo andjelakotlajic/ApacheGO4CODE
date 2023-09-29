@@ -11,6 +11,7 @@ export class Post {
     user: postUser
     rate: number
     comments:Comment[]
+    date: Date
     constructor(id: number, text: string, createdTime: string, labels: Label[], User: postUser,views:number,comments:Comment[]) {
         this.text = text
         this.id = id
@@ -20,5 +21,6 @@ export class Post {
         this.rate = 0
         this.views=views
         this.comments=comments
+        this.date = new Date(createdTime)
     }
 }
